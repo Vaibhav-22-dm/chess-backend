@@ -50,18 +50,13 @@ export default {
     },
     getGame: async (req, res) => {
         try {
-            console.log(req.params.gameId)
             let obj = await GameModel.getGameById(req.params.gameId);
 
             let game = JSON.parse(obj.game);
 
-            console.log(game.blackPlayer)
-
             if(game.blackPlayer===null && game.whitePlayer !== req.username) game.blackPlayer = req.username;
 
             game = JSON.stringify(game) 
-
-            console.log(game)
 
             obj = await GameModel.updateGameById(req.params.gameId, game)
 
